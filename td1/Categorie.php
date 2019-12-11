@@ -21,7 +21,7 @@ class Categorie extends Model
             $retour = $query->get();
             $tab = [];
             foreach ($retour as $categ) {
-                array_push($tab,new Catgeorie($catge));
+                array_push($tab,new Categorie($categ));
             }
         }
         elseif(func_num_args()==2 && is_int($args)==true){

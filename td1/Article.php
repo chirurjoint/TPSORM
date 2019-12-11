@@ -28,10 +28,11 @@ class Article extends Model
         return $tab;
     }
 
-    public static function find($args = null, $select = '*'){
+    public static function find($args, $select = ['*']){
         if(func_num_args()==1 && is_int($args)==true){
+            print_r("zinzin");
             $query = Query::table('article');
-            $query->select([$select]);
+            $query->select($select);
             $query->where(['id = '.$args]);
             $retour = $query->get();
             $tab = [];
@@ -39,7 +40,7 @@ class Article extends Model
                 array_push($tab,new Article($article));
             }
         }
-        elseif(func_num_args()==2 && is_int($args)==true){
+        if(func_num_args()==2 && is_int($args)==true){
             $query = Query::table('article');
             $elements = implode(',',$select);
             $query->select($select);
@@ -49,7 +50,7 @@ class Article extends Model
             foreach ($retour as $article) {
                 array_push($tab,new Article($article));
             }
-        }elseif(func_num_args()==2 && is_int($args)==false){
+        }if(func_num_args()==2 && is_array($args)==true){
             $query = Query::table('article');
             $elements = implode(',',$select);
             $query->select($select);
@@ -59,7 +60,7 @@ class Article extends Model
             foreach ($retour as $article) {
                 array_push($tab,new Article($article));
             }
-        }elseif (is_int($args)==false && func_num_args()==1) {
+        }if (is_array($args)==true && func_num_args()==1) {
             $query = Query::table('article');
             $query->select(["*"]);
             $query->where($args);

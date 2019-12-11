@@ -20,6 +20,7 @@ class Query
     public function delete(){
         $pdo = $this->run();
         $this->sql = 'delete from '.$this->sqltable.' '.$this->where.';';
+        echo $this->sql;
         $statement = $pdo->prepare($this->sql);
         $statement->execute();
     }
@@ -57,18 +58,20 @@ class Query
         }
     }
 
-    public function where(array $args){   
+    public function where($args){   
         $size = sizeof($args);   
         foreach ($args as $arg){
-           
             $elements = explode(' ',$arg);
             if($size >1){
-                $this->where = $this->where ." ".$elements[0]." ".$elements[1]." ".$elements[2].' and ';   
+                $this->where = $this->where ." ".$elements[0]." ".$elements[1]." ".$elements[2].' and ';
+   
             }
             if ($size == 1){
                 $this->where = $this->where." ".$elements[0]." ".$elements[1]." ".$elements[2];   
+
             }
             $size--;
+
         }
         $this->where = 'where '.$this->where;
         return $this;

@@ -21,13 +21,9 @@ abstract class Model
     }
 
     public function delete(){
-        if ($this->id =! null){
-            $query1 = Query::table('article');
-            $query1->where(['id = '.$this->id]);
-            $query1->delete();
-        }else{
-            echo "pas d'ID trouvé !";
-        }
+        $query1 = Query::table('article');
+        $query1->where(['id = '.$this->id]);
+        $query1->delete();
     }
 
     public function insert(){
@@ -59,6 +55,7 @@ abstract class Model
 
     public function __get($name){
         echo "Récupération de '$name'\n";
+
         if (array_key_exists($name, $this->tab)) {
             return $this->tab[$name];var_dump($categ);
 
