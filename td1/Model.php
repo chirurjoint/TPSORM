@@ -10,24 +10,24 @@ abstract class Model
     public function save(){
         if($this instanceof Article){
             $con = new Query();
-            $query2 = Query::table('article');
+            $query2 = Query::table(strtolower(get_class($this)));
             $query2->insert($this);
         }
         else{
             $con = new Query();
-            $query2 = Query::table('categorie');
+            $query2 = Query::table(strtolower(get_class($this)));
             $query2->insert($this); 
         }
     }
 
     public function delete(){
-        $query1 = Query::table('article');
+        $query1 = Query::table(strtolower(get_class($this)));
         $query1->where(['id = '.$this->id]);
         $query1->delete();
     }
 
     public function insert(){
-        $query2 = Query::table('article');
+        $query2 = Query::table(strtolower(get_class($this)));
         $query2->insert($this);
     }
 
@@ -38,18 +38,20 @@ abstract class Model
         $query1 = Query::table(strtolower($object));
         $query1->where(['id = '.$obj[0][$id]]);
         $retour = $query1->get();
-        return $retour;
+        $final_return = new $object($retour[0]);
+        return $final_return;
     }
 
     public function has_many($object,$id){
         $query = Query::table(strtolower($object));
         $query->where([$id.' = '.$this->id]);  
         $objs = $query->get();
-
-        // $query1 = Query::table(strtolower($object));
-        // $query1->where(['id = '.$obj->id]);
-        // $retour = $query1->get();
-        return $objs;
+        $tab = [];
+        foreach ($objs as $obj) {
+            $zinzin = new $object($obj);
+            array_push($tab,$zinzin);
+        }
+        return $tab;
     }
 
 

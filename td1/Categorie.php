@@ -22,7 +22,7 @@ class Categorie extends Model
         $article = $this->has_many('Article','id_categ');
         $tab = [];
         foreach ($article as $article) {
-            array_push($tab,new Article($article));
+            array_push($tab,$article);
         }
         return $tab;
     }

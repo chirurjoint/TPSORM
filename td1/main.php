@@ -124,28 +124,30 @@ echo "\n".$articles->tarif."\n";
 echo "\n==============================\n";
 
 
-echo "\n-------------- Methodes belongs_to() -------------\n";
+echo "\n-------------- Methodes has_many() -------------\n";
+$categorie = Categorie::first(1);
+$articles = $categorie->has_many('Article','id_categ');
+
+foreach ($articles as $article) {
+    echo "\n==============================\n";
+    echo "\nArticle :".$article->id."\n";
+    echo "\nNom: ".$article->nom."\n";
+    echo "\nDescription: ".$article->descr."\n";
+    echo "\nTarif: ".$article->tarif."\n";
+    echo "\nId Categorie: ".$article->id_categ."\n";
+    echo "\n==============================\n";
+}
+
+
+
+
+echo "\n-------------- Methode belongs_to() -------------\n";
 $article = Article::first(65);
+$categ = $article->belongs_to('Categorie','id_categ');
 echo "\n==============================\n";
-//echo "\n".$article ->id."\n"; n'est pas compter dans la recherche
-echo "\n".$articles->nom."\n";
-//echo "\n".$article->descr."\n"; n'est pas compter dans la recherche
-echo "\n".$articles->tarif."\n";
-//echo "\n".$article->id_categ."\n"; n'est pas compter dans la recherche
-echo "\n==============================\n";
-
-
-
-
-
-echo "\n-------------- Methode has_many() -------------\n";
-$article = Article::first(65);
-echo "\n==============================\n";
-//echo "\n".$article ->id."\n"; n'est pas compter dans la recherche
-echo "\n".$articles->nom."\n";
-//echo "\n".$article->descr."\n"; n'est pas compter dans la recherche
-echo "\n".$articles->tarif."\n";
-//echo "\n".$article->id_categ."\n"; n'est pas compter dans la recherche
+echo "\nArticle :".$categ->id."\n";
+echo "\nNom: ".$categ->nom."\n";
+echo "\nDescription: ".$categ->descr."\n";
 echo "\n==============================\n";
 
 
@@ -174,7 +176,7 @@ echo "\n-------------- Methode categorie() -------------\n";
 $article = Article::first(65);
 $categorie = $article->categorie();
 echo "\n==============================\n";
-echo "\nCategorie : ".$categorie ->id."\n";
+echo "\nCategorie : ".$categorie->id."\n";
 echo "\nNom: ".$categorie->nom."\n";
 echo "\nDescription: ".$categorie->descr."\n";
 echo "\n==============================\n";

@@ -29,7 +29,7 @@ class Article extends Model
 
     public function categorie(){
         $categorie = $this->belongs_to('Categorie','id_categ');
-        return new Categorie($categorie[0]);
+        return $categorie;
     }
 
     public static function all(){
