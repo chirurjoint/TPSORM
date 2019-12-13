@@ -48,21 +48,21 @@ $article = new Article($tab);
 $article->insert();
 $article_search = Article::find(445);
 echo "\n==============================\n";
-echo "\n".$article_search[0]->id."\n";
-echo "\n".$article_search[0]->nom."\n";
-echo "\n".$article_search[0]->descr."\n";
-echo "\n".$article_search[0]->tarif."\n";
-echo "\n".$article_search[0]->id_categ."\n";
+echo "\nArticle :".$article_search[0]->id."\n";
+echo "\nNom: ".$article_search[0]->nom."\n";
+echo "\nDescription: ".$article_search[0]->descr."\n";
+echo "\nTarif: ".$article_search[0]->tarif."\n";
+echo "\nId Categorie: ".$article_search[0]->id_categ."\n";
 echo "\n==============================\n";
 
 
 $article_first_search = Article::first(445);
 echo "\n==============================\n";
-echo "\n".$article_first_search ->id."\n";
-echo "\n".$article_first_search->nom."\n";
-echo "\n".$article_first_search->descr."\n";
-echo "\n".$article_first_search->tarif."\n";
-echo "\n".$article_first_search->id_categ."\n";
+echo "\nArticle :".$article_first_search ->id."\n";
+echo "\nNom: ".$article_first_search->nom."\n";
+echo "\nDescription: ".$article_first_search->descr."\n";
+echo "\nTarif: ".$article_first_search->tarif."\n";
+echo "\nId Categorie: ".$article_first_search->id_categ."\n";
 echo "\n==============================\n";
 
 
@@ -77,11 +77,11 @@ $article = new Article($tab);
 $article->insert();
 $article_first_delete = Article::first(999);
 echo "\n==============================\n";
-echo "\n".$article_first_delete ->id."\n";
-echo "\n".$article_first_delete->nom."\n";
-echo "\n".$article_first_delete->descr."\n";
-echo "\n".$article_first_delete->tarif."\n";
-echo "\n".$article_first_delete->id_categ."\n";
+echo "\nArticle :".$article_first_delete ->id."\n";
+echo "\nNom: ".$article_first_delete->nom."\n";
+echo "\nDescription: ".$article_first_delete->descr."\n";
+echo "\nTarif: ".$article_first_delete->tarif."\n";
+echo "\nId Categorie: ".$article_first_delete->id_categ."\n";
 echo "\n==============================\n";
 
 $article_first_delete->delete();
@@ -91,11 +91,11 @@ echo "\n-------------- FINDER POUR LA FONCTION ALL -------------\n";
 $articles = Article::all();
 foreach ($articles as $article) {
     echo "\n==============================\n";
-    echo "\n".$article ->id."\n";
-    echo "\n".$article->nom."\n";
-    echo "\n".$article->descr."\n";
-    echo "\n".$article->tarif."\n";
-    echo "\n".$article->id_categ."\n";
+    echo "\nArticle :".$article ->id."\n";
+    echo "\nNom: ".$article->nom."\n";
+    echo "\nDescription: ".$article->descr."\n";
+    echo "\nTarif: ".$article->tarif."\n";
+    echo "\nId Categorie: ".$article->id_categ."\n";
     echo "\n==============================\n";
 }
 
@@ -124,8 +124,60 @@ echo "\n".$articles->tarif."\n";
 echo "\n==============================\n";
 
 
+echo "\n-------------- Methodes belongs_to() -------------\n";
+$article = Article::first(65);
+echo "\n==============================\n";
+//echo "\n".$article ->id."\n"; n'est pas compter dans la recherche
+echo "\n".$articles->nom."\n";
+//echo "\n".$article->descr."\n"; n'est pas compter dans la recherche
+echo "\n".$articles->tarif."\n";
+//echo "\n".$article->id_categ."\n"; n'est pas compter dans la recherche
+echo "\n==============================\n";
 
 
+
+
+
+echo "\n-------------- Methode has_many() -------------\n";
+$article = Article::first(65);
+echo "\n==============================\n";
+//echo "\n".$article ->id."\n"; n'est pas compter dans la recherche
+echo "\n".$articles->nom."\n";
+//echo "\n".$article->descr."\n"; n'est pas compter dans la recherche
+echo "\n".$articles->tarif."\n";
+//echo "\n".$article->id_categ."\n"; n'est pas compter dans la recherche
+echo "\n==============================\n";
+
+
+
+
+
+
+echo "\n-------------- Methode article() -------------\n";
+$categ = Categorie::first(1);
+$articles = $categ->articles();
+foreach ($articles as $article) {
+    echo "\n==============================\n";
+    echo "\nArticle :".$article ->id."\n";
+    echo "\nNom: ".$article->nom."\n";
+    echo "\nDescription: ".$article->descr."\n";
+    echo "\nTarif: ".$article->tarif."\n";
+    echo "\nId Categorie: ".$article->id_categ."\n";
+    echo "\n==============================\n";
+}
+
+
+
+
+
+echo "\n-------------- Methode categorie() -------------\n";
+$article = Article::first(65);
+$categorie = $article->categorie();
+echo "\n==============================\n";
+echo "\nCategorie : ".$categorie ->id."\n";
+echo "\nNom: ".$categorie->nom."\n";
+echo "\nDescription: ".$categorie->descr."\n";
+echo "\n==============================\n";
 
 
 

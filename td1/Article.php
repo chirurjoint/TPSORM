@@ -9,13 +9,28 @@ class Article extends Model
 
     public function __construct($tab){
         parent::__construct($tab);
-        $this->nom = $tab['nom'];
-        $this->id = $tab['id'];
-        $this->descr = $tab['descr'];
-        $this->tarif = $tab['tarif'];
-        $this->id_categ = $tab['id_categ'];
+        if(array_key_exists('nom', $tab)){
+            $this->nom = $tab['nom'];
+        }
+        if(array_key_exists('id', $tab)){
+            $this->id = $tab['id'];
+        }
+        if(array_key_exists('descr', $tab)){
+            $this->descr = $tab['descr'];
+        }
+        if(array_key_exists('tarif', $tab)){
+            $this->tarif = $tab['tarif'];
+        }
+        if(array_key_exists('id_categ', $tab)){
+            $this->id_categ = $tab['id_categ'];
+        }
     }
 
+
+    public function categorie(){
+        $categorie = $this->belongs_to('Categorie','id_categ');
+        return new Categorie($categorie[0]);
+    }
 
     public static function all(){
         $query = Query::table('article');
@@ -30,7 +45,6 @@ class Article extends Model
 
     public static function find($args, $select = ['*']){
         if(func_num_args()==1 && is_int($args)==true){
-            print_r("zinzin");
             $query = Query::table('article');
             $query->select($select);
             $query->where(['id = '.$args]);
@@ -40,7 +54,7 @@ class Article extends Model
                 array_push($tab,new Article($article));
             }
         }
-        if(func_num_args()==2 && is_int($args)==true){
+        elseif(func_num_args()==2 && is_int($args)==true){
             $query = Query::table('article');
             $elements = implode(',',$select);
             $query->select($select);
@@ -50,7 +64,7 @@ class Article extends Model
             foreach ($retour as $article) {
                 array_push($tab,new Article($article));
             }
-        }if(func_num_args()==2 && is_array($args)==true){
+        }elseif(func_num_args()==2 && is_array($args)==true){
             $query = Query::table('article');
             $elements = implode(',',$select);
             $query->select($select);
@@ -58,9 +72,10 @@ class Article extends Model
             $retour = $query->get();
             $tab = [];
             foreach ($retour as $article) {
+
                 array_push($tab,new Article($article));
             }
-        }if (is_array($args)==true && func_num_args()==1) {
+        }elseif (is_array($args)==true && func_num_args()==1) {
             $query = Query::table('article');
             $query->select(["*"]);
             $query->where($args);
@@ -73,7 +88,7 @@ class Article extends Model
         return $tab;
     }
 
-    public static function first($args = null, $select = ['*']){
+    public static function first($args, $select = ['*']){
         $artciles = Article::find($args,$select);
         return $artciles[0];
     }
